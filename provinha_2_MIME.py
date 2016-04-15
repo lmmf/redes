@@ -53,7 +53,9 @@ def mandaemail(email, assunto, conteudo):
 	smtp = smtplib.SMTP('smtp.gmail.com',587)
 	smtp.ehlo()
 	smtp.starttls()
+	print("\n\nTESTE1\n\n")
 	smtp.login(mail_from, pwd)
+	print("\n\nTESTE2\n\n")
 	smtp.sendmail(mail_from, mail_to, msg.as_string())
 	smtp.quit()
 
