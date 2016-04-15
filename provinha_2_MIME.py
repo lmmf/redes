@@ -1,16 +1,23 @@
 import os
 from flask import Flask
 from flask import request
-# importa biblioteca
-import smtplib
-#importa modulos de email
-from email.MIMEMultipart import MIMEMultipart
-from email.MIMEText import MIMEText
-from email.MIMEImage import MIMEImage
-import socket as s
+from flaskext.mail import Mail, Message
 
 
 app = Flask(__name__)
+mail=Mail(app)
+
+app.config.update(
+	DEBUG=True,
+	#EMAIL SETTINGS
+	MAIL_SERVER='smtp.gmail.com',
+	MAIL_PORT=465,
+	MAIL_USE_SSL=True,
+	MAIL_USERNAME = 'freddysampaio9@gmail.com',
+	MAIL_PASSWORD = 'fantauva'
+	)
+mail=Mail(app)
+
 def html():
 	return '''<html>\n
 <head><title>EMAIL</title></head>\n
@@ -30,35 +37,6 @@ def index():
     return html()
 
 
-
-#print(ip)
-def mandaemail(email, assunto, conteudo):
-	# dados
-	body = conteudo
-	sub = assunto
-	mail_from = 'provinharedes@outlook.com'
-	mail_to = email
-	pwd = 'Apenasumteste'
-
-
-	# preeenchendo os dados
-	msg = MIMEMultipart('related')
-	msg['From'] = mail_from
-	msg['To'] = mail_to
-	msg['Subject'] = sub
-	msg.attach(MIMEText(body, 'plain'))
-	# envia email
-	
-	# altorizacao e autenticacao
-	smtp = smtplib.SMTP('smtp-mail.outlook.com',587)
-	smtp.ehlo()
-	smtp.starttls()
-	print("\n\nTESTE1\n\n")
-	smtp.login(mail_from, pwd)
-	print("\n\nTESTE2\n\n")
-	smtp.sendmail(mail_from, mail_to, msg.as_string())
-	smtp.quit()
-
 def pegaemail(mensagem):
 	email=mensagem.split("user=")[1].split("&sub=")[0]
 	assunto=mensagem.split("&sub=")[1].split("&pw=")[0]
@@ -66,11 +44,14 @@ def pegaemail(mensagem):
 	email=email.replace("%40", "@")
 	assunto=assunto.replace("+", " ")
 	conteudo=conteudo.replace("+", " ")
-	mandaemail(email, assunto, conteudo)
+	return (email, assunto, conteudo)
 
 @app.route("/bin/login")
 def resposta():
-	pegaemail(str(request.url))
+	(email, assunto, conteudo)=pegaemail(str(request.url))	
+	msg=Message(assunto, sender='freddysampaio9@gmail.com', recipients=[email])
+	msg.body=conteudo
+	mail.send(msg)
 	return "<h1>Sucesso!</hi>"
 
 if __name__ == "__main__":
