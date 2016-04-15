@@ -1,7 +1,7 @@
 import os
 from flask import Flask
 from flask import request
-from flaskext.mail import Mail, Message
+from flask.ext.mail import Mail, Message
 
 
 app = Flask(__name__)
