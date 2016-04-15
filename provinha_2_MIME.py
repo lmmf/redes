@@ -71,7 +71,7 @@ def pegaemail(mensagem):
 @app.route("/bin/<mensagem>")
 def resposta(mensagem):
 	print(request.url)
-	#mandaemail(pegaemail(str(request.url)))
+	mandaemail(pegaemail(str(request.url)))
 	return "<h1>"+request.url+"Sucesso!</hi>"
 
 if __name__ == "__main__":
