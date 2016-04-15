@@ -5,17 +5,20 @@ from flaskext.mail import Mail, Message
 
 
 app = Flask(__name__)
+
 mail=Mail(app)
 
 app.config.update(
 	DEBUG=True,
 	#EMAIL SETTINGS
 	MAIL_SERVER='smtp.gmail.com',
-	MAIL_PORT=465,
-	MAIL_USE_SSL=True,
+	MAIL_PORT=587,
+	MAIL_USE_SSL=False,
+	MAIL_USE_TLS=True,
 	MAIL_USERNAME = 'freddysampaio9@gmail.com',
 	MAIL_PASSWORD = 'fantauva'
 	)
+
 mail=Mail(app)
 
 def html():
@@ -52,6 +55,7 @@ def resposta():
 	msg=Message(assunto, sender='freddysampaio9@gmail.com', recipients=[email])
 	msg.body=conteudo
 	mail.send(msg)
+	print("\n\nTESTE\n\n")
 	return "<h1>Sucesso!</hi>"
 
 if __name__ == "__main__":
