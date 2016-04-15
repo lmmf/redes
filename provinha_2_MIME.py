@@ -1,6 +1,13 @@
 import os
 from flask import Flask
 from flask import request
+# importa biblioteca
+import smtplib
+#importa modulos de email
+from email.MIMEMultipart import MIMEMultipart
+from email.MIMEText import MIMEText
+from email.MIMEImage import MIMEImage
+import socket as s
 
 
 app = Flask(__name__)
@@ -22,22 +29,16 @@ def html():
 def index():
     return html()
 
-#importa modulos de email
-from email.MIMEMultipart import MIMEMultipart
-from email.MIMEText import MIMEText
-from email.MIMEImage import MIMEImage
-import socket as s
+
 
 #print(ip)
-def mandaemail((email, assunto, content)):
-
-	print(email, assunto, content)
+def mandaemail(email, assunto, conteudo):
 	# dados
-	body = content
+	body = conteudo
 	sub = assunto
-	mail_from = 'freddysampaio9@gmail.com'
+	mail_from = 'provinharedes@gmail.com'
 	mail_to = email
-	pwd = 'fantauva'
+	pwd = 'apenasumteste'
 
 
 	# preeenchendo os dados
@@ -46,11 +47,8 @@ def mandaemail((email, assunto, content)):
 	msg['To'] = mail_to
 	msg['Subject'] = sub
 	msg.attach(MIMEText(body, 'plain'))
-
-
 	# envia email
-	# importa biblioteca
-	import smtplib
+	
 	# altorizacao e autenticacao
 	smtp = smtplib.SMTP('smtp.gmail.com',587)
 	smtp.ehlo()
@@ -66,14 +64,12 @@ def pegaemail(mensagem):
 	email=email.replace("%40", "@")
 	assunto=assunto.replace("+", " ")
 	conteudo=conteudo.replace("+", " ")
-	return "<h1>"+email+" "+assunto+" "+conteudo+"</h1>"
-	return (email, assunto, conteudo)
+	mandaemail(email, assunto, conteudo)
 
 @app.route("/bin/login")
 def resposta():
-	return pegaemail(str(request.url))
-	#mandaemail(pegaemail(str(request.url)))
-	#return "<h1>"+request.url+"Sucesso!</hi>"
+	pegaemail(str(request.url))
+	return "<h1>Sucesso!</hi>"
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
