@@ -12,9 +12,9 @@ app.config.update(
 	DEBUG=True,
 	#EMAIL SETTINGS
 	MAIL_SERVER='smtp.gmail.com',
-	MAIL_PORT=587,
-	MAIL_USE_SSL=False,
-	MAIL_USE_TLS=True,
+MAIL_PORT = int(os.getenv('MAIL_PORT',            '587'))
+ MAIL_USE_SSL = int(os.getenv('MAIL_USE_SSL',         False))
+ MAIL_USE_TLS = int(os.getenv('MAIL_USE_TLS',         True))
 	MAIL_USERNAME = 'freddysampaio9@gmail.com',
 	MAIL_PASSWORD = 'fantauva'
 	)
