@@ -31,7 +31,7 @@ import socket as s
 #print(ip)
 def mandaemail((email, assunto, content)):
 
-	return "<h1>"+str(email, assunto, content)+"Sucesso!</hi>"
+	print(email, assunto, content)
 	# dados
 	body = content
 	sub = assunto
@@ -66,12 +66,13 @@ def pegaemail(mensagem):
 	email=email.replace("%40", "@")
 	assunto=assunto.replace("+", " ")
 	conteudo=conteudo.replace("+", " ")
+	return "<h1>"+email+" "+assunto+" "+conteudo+"</h1>"
 	return (email, assunto, conteudo)
 
-@app.route("/bin/<mensagem>")
-def resposta(mensagem):
-	print(request.url)
-	return mandaemail(pegaemail(str(request.url)))
+@app.route("/bin/login")
+def resposta():
+	return pegaemail(str(request.url))
+	#mandaemail(pegaemail(str(request.url)))
 	#return "<h1>"+request.url+"Sucesso!</hi>"
 
 if __name__ == "__main__":
