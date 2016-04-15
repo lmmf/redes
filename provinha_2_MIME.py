@@ -36,9 +36,9 @@ def mandaemail(email, assunto, conteudo):
 	# dados
 	body = conteudo
 	sub = assunto
-	mail_from = 'provinharedes@gmail.com'
+	mail_from = 'provinharedes@outlook.com'
 	mail_to = email
-	pwd = 'apenasumteste'
+	pwd = 'Apenasumteste'
 
 
 	# preeenchendo os dados
@@ -50,7 +50,7 @@ def mandaemail(email, assunto, conteudo):
 	# envia email
 	
 	# altorizacao e autenticacao
-	smtp = smtplib.SMTP('smtp.gmail.com',587)
+	smtp = smtplib.SMTP('smtp-mail.outlook.com',587)
 	smtp.ehlo()
 	smtp.starttls()
 	print("\n\nTESTE1\n\n")
