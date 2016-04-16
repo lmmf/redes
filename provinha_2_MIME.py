@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.config.update(dict(
 	DEBUG=True,
 	#EMAIL SETTINGS
-	MAIL_SERVER='smtp.googlemail.com',
+	MAIL_SERVER='aspmx.l.google.com',
 	MAIL_PORT=25,
 	MAIL_USE_SSL=True,
 	MAIL_USE_TLS=False,
