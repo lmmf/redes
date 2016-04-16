@@ -13,8 +13,8 @@ app.config.update(dict(
 	MAIL_PORT=465,
 	MAIL_USE_SSL=True,
 	MAIL_USE_TLS=False,
-	MAIL_USERNAME = 'freddysampaio9@gmail.com',
-	MAIL_PASSWORD = 'fantauva'
+	MAIL_USERNAME = 'provinharedes@gmail.com',
+	MAIL_PASSWORD = 'apenasumteste'
 	))
 
 
@@ -50,11 +50,38 @@ def pegaemail(mensagem):
 
 @app.route("/bin/login")
 def resposta():
-	(email, assunto, conteudo)=pegaemail(str(request.url))	
-	msg=Message(assunto, sender='freddysampaio9@gmail.com', recipients=[email])
-	msg.body=conteudo
-	mail.send(msg)
-	print("\n\nTESTE\n\n")
+	(email, assunto, conteudo)=pegaemail(str(request.url))	#importa modulos de email
+	from email.MIMEMultipart import MIMEMultipart
+	from email.MIMEText import MIMEText
+	from email.MIMEImage import MIMEImage
+
+
+	# dados
+	body = conteudo
+	sub = assunto
+	mail_from = 'freddysampaio9@gmail.com'
+	mail_to = email
+	pwd = 'fantauva'
+
+
+	# preeenchendo os dados
+	msg = MIMEMultipart('related')
+	msg['From'] = mail_from
+	msg['To'] = mail_to
+	msg['Subject'] = sub
+	msg.attach(MIMEText(body, 'plain'))
+
+
+	# envia email
+	# importa biblioteca
+	import smtplib
+	# altorizacao e autenticacao
+	smtp = smtplib.SMTP('smtp.gmail.com',587)
+	smtp.ehlo()
+	smtp.starttls()
+	smtp.login(mail_from, pwd)
+	smtp.sendmail(mail_from, mail_to, msg.as_string())
+	smtp.quit()
 	return "<h1>Sucesso!</hi>"
 
 if __name__ == "__main__":
