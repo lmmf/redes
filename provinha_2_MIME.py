@@ -10,7 +10,7 @@ app.config.update(dict(
 	DEBUG=True,
 	#EMAIL SETTINGS
 	MAIL_SERVER='smtp.googlemail.com',
-	MAIL_PORT=25,
+	MAIL_PORT=587,
 	MAIL_USE_SSL=True,
 	MAIL_USE_TLS=False,
 	MAIL_USERNAME = 'freddysampaio9@gmail.com',
