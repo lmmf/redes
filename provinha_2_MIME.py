@@ -50,38 +50,10 @@ def pegaemail(mensagem):
 
 @app.route("/bin/login")
 def resposta():
-	(email, assunto, conteudo)=pegaemail(str(request.url))	#importa modulos de email
-	from email.MIMEMultipart import MIMEMultipart
-	from email.MIMEText import MIMEText
-	from email.MIMEImage import MIMEImage
-
-
-	# dados
-	body = conteudo
-	sub = assunto
-	mail_from = 'freddysampaio9@gmail.com'
-	mail_to = email
-	pwd = 'fantauva'
-
-
-	# preeenchendo os dados
-	msg = MIMEMultipart('related')
-	msg['From'] = mail_from
-	msg['To'] = mail_to
-	msg['Subject'] = sub
-	msg.attach(MIMEText(body, 'plain'))
-
-
-	# envia email
-	# importa biblioteca
-	import smtplib
-	# altorizacao e autenticacao
-	smtp = smtplib.SMTP('smtp.gmail.com',587)
-	smtp.ehlo()
-	smtp.starttls()
-	smtp.login(mail_from, pwd)
-	smtp.sendmail(mail_from, mail_to, msg.as_string())
-	smtp.quit()
+	(email, assunto, conteudo)=pegaemail(str(request.url))	
+	msg=Message(assunto, sender='provinharedes@gmail.com', recipients=[email])
+	msg.body=conteudo
+	mail.send(msg)
 	return "<h1>Sucesso!</hi>"
 
 if __name__ == "__main__":
