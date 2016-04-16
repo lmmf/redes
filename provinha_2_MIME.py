@@ -9,8 +9,8 @@ app = Flask(__name__)
 app.config.update(dict(
 	DEBUG=True,
 	#EMAIL SETTINGS
-	MAIL_SERVER='aspmx.l.google.com',
-	MAIL_PORT=25,
+	MAIL_SERVER='smtp.gmail.com',
+	MAIL_PORT=465,
 	MAIL_USE_SSL=True,
 	MAIL_USE_TLS=False,
 	MAIL_USERNAME = 'freddysampaio9@gmail.com',
