@@ -6,18 +6,17 @@ from flask.ext.mail import Mail, Message
 
 app = Flask(__name__)
 
-mail=Mail(app)
-
-app.config.update(
+app.config.update(dict(
 	DEBUG=True,
 	#EMAIL SETTINGS
-	MAIL_SERVER='smtp.gmail.com',
-MAIL_PORT = int(os.getenv('MAIL_PORT',            '587'))
- MAIL_USE_SSL = int(os.getenv('MAIL_USE_SSL',         False))
- MAIL_USE_TLS = int(os.getenv('MAIL_USE_TLS',         True))
+	MAIL_SERVER='smtp.googlemail.com',
+	MAIL_PORT=25,
+	MAIL_USE_SSL=True,
+	MAIL_USE_TLS=False,
 	MAIL_USERNAME = 'freddysampaio9@gmail.com',
 	MAIL_PASSWORD = 'fantauva'
-	)
+	))
+
 
 mail=Mail(app)
 
